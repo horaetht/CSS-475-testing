@@ -1,0 +1,20 @@
+name: Discord Test Notification
+
+on:
+  push:
+    branches:
+      - main
+  issues:
+    types: [opened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send message to Discord
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: "Test repo update: ${{ github.event_name }} by ${{ github.actor }} in ${{ github.repository }}"
+          
